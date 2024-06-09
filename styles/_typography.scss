@@ -1,0 +1,84 @@
+@import "@/styles/spacing.scss";
+@import "@/styles/colors.scss";
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+
+$font-size-xxl: 2.5rem;
+$font-size-xl: 2rem;
+$font-size-lg: 1.5rem;
+$font-size-md: 1.25rem;
+$font-size-regular-alt: 1.125rem;
+$font-size-regular: 1rem;
+$font-size-sm: 0.875rem;
+
+$font-family: "Libre Franklin", sans-serif;
+
+@mixin title {
+  font-size: $font-size-regular;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+@mixin title-xxl {
+  @include title;
+
+  font-size: $font-size-xxl;  
+  margin-bottom: $spacing-16;
+}
+
+@mixin title-xl {
+  @include title;
+
+  font-size: $font-size-xl;  
+  margin-bottom: $spacing-12;
+}
+
+@mixin title-lg {
+  @include title;
+
+  font-size: $font-size-lg;  
+  margin-bottom: $spacing-8;
+}
+
+@mixin title-md {
+  @include title;
+
+  font-size: $font-size-md;  
+  margin-bottom: $spacing-8;
+}
+
+@mixin title-sm {
+  @include title;
+
+  font-size: $font-size-sm;  
+  margin-bottom: $spacing-8;
+}
+
+// BODIES
+
+@mixin text-body-sm {
+  font-size: $font-size-sm;
+  line-height: $font-size-sm * 1.5;
+  font-weight: 400;
+  color: $primary-color;
+}
+
+@mixin text-body {
+  font-size: $font-size-regular;
+  line-height: $font-size-regular * 1.5;
+  font-weight: 400;
+  color: $primary-color;
+}
+
+@mixin text-body-alt {
+  @include text-body;
+
+  font-size: $font-size-regular-alt;
+  line-height: $font-size-regular * 1.7;
+}
+
+@mixin text-body-big {
+  @include text-body;
+
+  font-size: $font-size-md;
+  line-height: $font-size-md * 1.5;
+}

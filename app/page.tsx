@@ -1,94 +1,88 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { useEffect, useState } from "react";
+
+import { SupportedCountries } from "@/lib/contants/SupportedCountries";
+import { postalCodeSearch } from "@/lib/utils/postalCodeSearch";
+import { addToHistory } from "@/lib/utils/searchHistory";
+
+import MapContainerComponent from "@/components/Map";
+import SearchBox from "@/components/SearchBox";
+import ResultCard from "@/components/ResultCard";
+
+import s from "./page.module.scss";
+import classNames from "classnames";
 
 export default function Home() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [postalCode, setPostalCode] = useState<string>('');
+  const [searchResult, setSearchResult] = useState<IPostalCodeRes | false>(false);
+  const [mapCoords, setMapCoords] = useState<[number, number]>([0, 0]);
+  const [mapZoom, setMapZoom] = useState<number>(16);
+
+  const search = async (e: any, countryIndex: number, postalCode: string, saveToHistory?: boolean) => {
+    e?.preventDefault();
+    setLoading(true);
+    setPostalCode(postalCode);
+    const postRes: IPostalCodeRes | false = await postalCodeSearch(
+      SupportedCountries[countryIndex].code,
+      postalCode
+    );
+    setSearchResult(postRes);
+    if (postRes && postRes.places.length > 0) {
+      setMapCoords([postRes.places[0].latitude, postRes.places[0].longitude]);
+      setMapZoom(16);
+    } else {
+      setMapCoords([0, 0]);
+      setMapZoom(2);
+    }
+
+    if (saveToHistory) {
+      addToHistory(countryIndex, postalCode);
+    }
+
+    setLoading(false);
+  };
+  
+  useEffect(() => {
+    search(undefined, 0, '12049');
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <main className={s.main}>
+      <div className={s.content}>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+        <SearchBox
+          className={s.searchBox}
+          onSubmit={(countryIndex, postalCode) => search(undefined, countryIndex, postalCode, true)}
         />
-      </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        {
+          postalCode && searchResult ? (
+            <ResultCard
+              className={s.resultCard}
+              postalCode={postalCode}
+              city={searchResult?.places[0]?.placeName}
+              state={searchResult?.places[0]?.state}
+              stateAbbreviation={searchResult?.places[0]?.stateCode}
+              country={searchResult?.country}
+              lat={searchResult?.places[0]?.latitude}
+              lng={searchResult?.places[0]?.longitude}
+            />
+          ) : (
+            <div className={classNames(s.emptyResult, s.resultCard)}>
+              No places found with postal code: {postalCode}
+            </div>
+          )
+        }
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        <div className={s.mapContainer}>
+          <MapContainerComponent 
+            lat={mapCoords[0]}
+            lng={mapCoords[1]}
+            zoom={mapZoom}
+          />
+        </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
   );

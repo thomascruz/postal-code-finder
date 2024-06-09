@@ -1,0 +1,45 @@
+@import '@/styles/variables.scss';
+@import '@/styles/typography.scss';
+
+.main {
+  height: 100vh;
+  width: 100vw;
+
+  .searchBox {
+    position: absolute;
+    z-index: 100;
+    margin: $spacing-48;
+  }
+
+  .resultCard {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    margin: $spacing-48;
+
+    &.emptyResult {
+      padding: $spacing-24 $spacing-24 $spacing-24 $spacing-32;
+
+      color: $primary-color;
+      background-color: rgba($gray-100, .85);
+      backdrop-filter: blur(5px);
+      border-radius: $border-radius-lg - ($spacing-24 / 2);
+    }
+  }
+
+  .mapContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    width: calc(100vw - ($spacing-24 * 2));
+    height: calc(100vh - ($spacing-24 * 2));
+
+    margin: $spacing-24;
+    background-color: $black-100;
+    border-radius: $border-radius-lg;
+  }
+
+}

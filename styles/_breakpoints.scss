@@ -1,0 +1,17 @@
+$max-width-lg: 1600px;
+$max-width-md: 1440px;
+$max-width-sm: 720px;
+$max-width-xsm: 640px;
+$max-width-default: 960px;
+
+$breakpoints: (
+  "desktop": $max-width-lg,
+  "tablet": $max-width-md,
+  "mobile": $max-width-sm,
+) !default;
+
+:export {
+  desktop: $max-width-lg;
+  tablet: $max-width-md;
+  mobile: $max-width-sm;
+}

@@ -1,0 +1,142 @@
+@import '@/styles/mixins.scss';
+@import '@/styles/variables.scss';
+@import '@/styles/typography.scss';
+
+.searchBox form {
+  position: relative;
+  width: 440px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  .inputsContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: $spacing-24 $spacing-24 $spacing-24 $spacing-32;
+  
+    color: $secondary-color;
+    background-color: rgba($blue-200, 1);
+    backdrop-filter: blur(5px);
+    border-radius: $border-radius-lg - ($spacing-24 / 2);
+  }
+  
+  .countrySelector {
+    flex-shrink: 1;
+    margin-bottom: $spacing-16;
+
+    .countrySelect {
+      @include text-body;
+      
+      border: none;
+      background-color: transparent;
+
+      color: $secondary-color;
+    }
+  }
+
+  .postalCodesCount {
+    @include title-sm;
+    text-align: right;
+    color: $secondary-color;
+  }
+
+  .searchInput {
+    flex-grow: 1;
+    color: $secondary-color;
+
+    input {
+      @include title-lg;
+
+      width: 100%;
+      padding: $spacing-8 0;
+
+      color: $secondary-color;
+      font-weight: 400;
+      background-color: transparent;
+      
+      border: none;
+      border-bottom: solid 2px $secondary-color;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: rgba($secondary-color, .7);
+      }
+    }
+
+  }
+
+  .pastSearches,
+  .searchButton {
+    margin-top: $spacing-16;
+  }
+
+  .searchButton {
+    padding-right: $spacing-16;
+
+    @include respond-to("mobile") {
+      padding-right: 0;
+      order: 10;
+    }
+  }
+
+  .pastSearches {
+    flex-grow: 1;
+
+    .title {
+      @include title-sm;
+      color: $white-100;
+      margin-bottom: $spacing-8;
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        display: inline-block;
+        margin-right: $spacing-12;
+        color: $white-100;
+        cursor: pointer;
+
+        @include respond-to("mobile") {
+          display: block;
+        }
+      }
+    }
+  }
+
+  @include respond-to("mobile") {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+.button {
+  @include text-body;
+  padding: $spacing-12 $spacing-20;
+  border: none;
+  border-radius: $border-radius-xsm;
+
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $primary-color;
+  background-color: $white-100;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($white-100, .85);
+  }
+
+  &:active {
+    background-color: rgba($white-100, .15);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: rgba($white-100, .5);
+  }
+}
