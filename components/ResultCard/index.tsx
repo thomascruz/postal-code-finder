@@ -4,7 +4,6 @@ import { useState } from "react";
 import classNames from "classnames";
 
 import s from "./style.module.scss";
-import { useRouter } from "next/router";
 
 const ResultCard: React.FC<{
   className?: string;
@@ -25,7 +24,6 @@ const ResultCard: React.FC<{
   lat,
   lng
 }) => {
-  const {} = useRouter();
   const [isButtonTimeoutFinished, setIsButtonTimeoutFinished] = useState<boolean>(true);
 
   const handleCopyToClipboard = () => {

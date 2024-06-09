@@ -1,16 +1,20 @@
 'use client';
+import dynamic from "next/dynamic";
+import classNames from "classnames";
 import { useEffect, useState } from "react";
 
 import { SupportedCountries } from "@/lib/contants/SupportedCountries";
 import { postalCodeSearch } from "@/lib/utils/postalCodeSearch";
 import { addToHistory, getHistory, prepopulateHistory } from "@/lib/utils/searchHistory";
 
-import MapContainerComponent from "@/components/Map";
 import SearchBox from "@/components/SearchBox";
 import ResultCard from "@/components/ResultCard";
 
 import s from "./page.module.scss";
-import classNames from "classnames";
+
+const MapContainerComponent = dynamic(() => import('@/components/Map'), {
+  ssr: false,
+});
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
