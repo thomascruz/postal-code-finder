@@ -1,3 +1,6 @@
+## Live version
+https://postal-code-finder-iota.vercel.app/
+
 ## Getting Started
 
 Install the dependencies as normal
