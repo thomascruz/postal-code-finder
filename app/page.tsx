@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from "react";
 
 import { SupportedCountries } from "@/lib/contants/SupportedCountries";
