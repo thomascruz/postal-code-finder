@@ -26,3 +26,8 @@ export const addToHistory = (countryIndex: number, postalCode: string) => {
 
   localStorage.setItem('searchHistory', JSON.stringify(history));
 };
+
+export const prepopulateHistory = () => {
+  const dummyHistory = [{"countryIndex":0,"countryCode":"DE","postalCode":"12053","timestamp":1717942225100},{"countryIndex":1,"countryCode":"US","postalCode":"90210","timestamp":1717942231807},{"countryIndex":3,"countryCode":"PH","postalCode":"9811","timestamp":1717942236533}];
+  localStorage.setItem('searchHistory', JSON.stringify(dummyHistory));
+};

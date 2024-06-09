@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { SupportedCountries } from "@/lib/contants/SupportedCountries";
 import { postalCodeSearch } from "@/lib/utils/postalCodeSearch";
-import { addToHistory } from "@/lib/utils/searchHistory";
+import { addToHistory, getHistory, prepopulateHistory } from "@/lib/utils/searchHistory";
 
 import MapContainerComponent from "@/components/Map";
 import SearchBox from "@/components/SearchBox";
@@ -45,6 +45,9 @@ export default function Home() {
   
   useEffect(() => {
     search(undefined, 0, '12049');
+    if (getHistory().length === 0) {
+      prepopulateHistory();
+    }
   }, []);
 
   return (
