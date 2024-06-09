@@ -23,6 +23,30 @@ export const SupportedCountries: ICountry[] = [
       example: "90210",
     },
   },
+  {
+    name: "Australia",
+    code: "AU",
+    flagEmoji: '🇦🇺',
+    postalCode: {
+      count: 10161,
+      format: "00000",
+      maxLength: 4,
+      regex: "^(\\d{4})$",
+      example: "2150",
+    },
+  },
+  {
+    name: "Phillippines",
+    code: "PH",
+    flagEmoji: '🇵🇭',
+    postalCode: {
+      count: 2232,
+      format: "00000",
+      maxLength: 4,
+      regex: "^(\\d{4})$",
+      example: "9811",
+    },
+  },
   // {
   //   name: "Brasil",
   //   code: "BR",

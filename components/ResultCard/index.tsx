@@ -48,7 +48,7 @@ const ResultCard: React.FC<{
 
         <div className={s.infoGroup}>
           <p className={s.resultInfo}>{city}</p>
-          <p className={s.resultInfo}>{`${state} (${stateAbbreviation})`}</p>
+          <p className={s.resultInfo}>{`${state} ${stateAbbreviation !== '' ? `(${stateAbbreviation})` : ''}`}</p>
         </div>
 
         <div className={s.infoGroup}>
